@@ -1,0 +1,10 @@
+[package]
+name = "rust_sorts"
+version = "0.1.0"
+authors = ["snmalton"]
+
+[dependencies]
+compare = "0.1.0"
+rand = "0.3"
+time = "0.1"
+rayon = "0.7.0"
