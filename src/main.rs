@@ -2,6 +2,7 @@ extern crate compare;
 extern crate rand;
 extern crate time;
 extern crate rayon;
+#[macro_use] extern crate match_all;
 use rand::Rng;
 use compare::{Compare, natural};
 use std::cmp::Ordering::{Less, Equal, Greater};
@@ -33,18 +34,12 @@ fn i32_merge_sort(array: &mut [i32]) {
             let mut right = 0;
             let cmp = natural();
             while left < left_half.len() && right < right_half.len() {
-                match cmp.compare(&left_half[left], &right_half[right]) {
-                    Less => {
+                match_all!{ cmp.compare(&left_half[left], &right_half[right]),
+                    Less | Equal => {
                         merged.push(left_half[left]);
                         left += 1;
                     },
-                    Equal => {
-                        merged.push(left_half[left]);
-                        merged.push(right_half[right]);
-                        left += 1;
-                        right += 1;
-                    },
-                    Greater => {
+                    Greater | Equal => {
                         merged.push(right_half[right]);
                         right += 1;
                     }
